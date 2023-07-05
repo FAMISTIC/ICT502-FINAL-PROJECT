@@ -1,15 +1,16 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Edit Customer</title>
+    <title>Delete Customer</title>
 </head>
 <body>
-    <h2>Edit Customer</h2>
+    <h2>Delete Customer</h2>
 
     <?php
     // Include your Oracle connection code here
     // ...
-	include_once 'connection.php';
+    include_once 'connection.php';
+
     // Check if a customer ID is provided
     if (isset($_GET['customer_id'])) {
         $customer_id = $_GET['customer_id'];
@@ -25,16 +26,18 @@
             $customer_name = $row['CUSTOMER_NAME'];
             $phone = $row['PHONE'];
             $email = $row['EMAIL'];
-            $password = $row['PASSWORD'];
 
-            // Display the customer edit form
-            echo '<form action="update-customer-process.php" method="POST">';
+            // Display the customer information
+            echo '<p>Are you sure you want to delete the following customer?</p>';
+            echo '<p><strong>Customer ID:</strong> ' . $customer_id . '</p>';
+            echo '<p><strong>Customer Name:</strong> ' . $customer_name . '</p>';
+            echo '<p><strong>Phone:</strong> ' . $phone . '</p>';
+            echo '<p><strong>Email:</strong> ' . $email . '</p>';
+
+            // Display the delete confirmation form
+            echo '<form action="delete.php" method="POST">';
             echo '<input type="hidden" name="customer_id" value="' . $customer_id . '">';
-            echo 'Customer Name: <input type="text" name="customer_name" value="' . $customer_name . '"><br>';
-            echo 'Phone: <input type="text" name="phone" value="' . $phone . '"><br>';
-            echo 'Email: <input type="email" name="email" value="' . $email . '"><br>';
-            echo 'Password: <input type="password" name="password" value="' . $password . '"><br>';
-            echo '<input type="submit" value="Update">';
+            echo '<input type="submit" value="Delete">';
             echo '</form>';
         } else {
             echo 'Customer not found.';
