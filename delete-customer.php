@@ -35,7 +35,7 @@
             echo '<p><strong>Email:</strong> ' . $email . '</p>';
 
             // Display the delete confirmation form
-            echo '<form action="delete.php" method="POST">';
+            echo '<form action="delete-customer-process.php" method="POST">';
             echo '<input type="hidden" name="customer_id" value="' . $customer_id . '">';
             echo '<input type="submit" value="Delete">';
             echo '</form>';

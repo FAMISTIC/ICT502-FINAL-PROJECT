@@ -49,7 +49,7 @@
         echo '<td>';
         echo '<a href="update-customer.php?customer_id=' . $row['CUSTOMER_ID'] . '">Edit</a>';
         echo ' | ';
-        echo '<a href="update-delete.php?customer_id=' . $row['CUSTOMER_ID'] . '">Delete</a>';
+        echo '<a href="delete-customer.php?customer_id=' . $row['CUSTOMER_ID'] . '">Delete</a>';
         echo '</td>';echo '</tr>';
     }
 

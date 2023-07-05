@@ -1,65 +1,34 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
-</head>
-<body>
-    <link rel="stylesheet" href="header.html">
-    <h1>Login</h1>
-    <?php 
-        if(empty($_POST['customer_login'])) { ?> 
-    <div class="container">
-        <form action="" method="post">
-            <div class="def-input">
-                <label for="email" name="email">Email</label>
-                <input type="email" name="email" placeholder="name@email.com">
-            </div>
-                <br>
-            <div class="def-input">
-                <label for="password" name="password">Password</label>
-                <input type="password" name="customer_password" placeholder="Password">
-            </div>
-            <div class="forget">
-                <link href="forgetpassword.php">
-            </div>
-            <div class="def-input">
-                <input type="submit" name="customer_login" value="Login">
-            </div>
+<?php
+// Include your Oracle connection code here
+include_once 'connection.php';
 
-        </form>
-    </div>
-    <?php } else{
-            $email = $_POST['email'];
-            $customer_password = $_POST['customer_password'];
 
-            include 'connection.php';
-            $query = "SELECT customer_name, email, phone FROM customer WHERE email='$email' AND password='$customer_password'";
-            $keeping = oci_parse($connection, $query);
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $email = $_POST['email'];
+    $password = $_POST['password'];
 
-            $data = oci_fetch_array($keeping);
-                    if(!empty($data['email'])){
-                        echo "Logged In";
-                        $_SESSION['customer_name'] = $data['customer_name'];
+    // Validate the username and password
+    // You can implement your own validation logic here
 
-                        $_SESSION['email'] = $data['email'];
-        
-                        $_SESSION['phone'] = $data['phone'];
-                        echo "<p>Name: ".$data['customer_name']."</p>";
-                        echo "<p>Email:".$data['email']."</p>";
-                        echo "<p>Phone:".$data['phone']."</p>";
-                    }else{
-                        
-                      
-                     }
-                    
-                }
-            
-         ?>
-    <link rel="stylesheet" href="footer.html">
-    
-    
-</body>
-</html>
+    // Query to check if the provided username and password are correct
+    $query = "SELECT * FROM customer WHERE email = :email AND password = :password";
+    $stmt = oci_parse($connection, $query);
+    oci_bind_by_name($stmt, ':email', $email);
+    oci_bind_by_name($stmt, ':password', $password);
+    oci_execute($stmt);
+
+    // Check if the login is successful
+    if ($row = oci_fetch_assoc($stmt)) {
+        // Login successful
+        // Redirect to the home page or a dashboard
+        header("Location: home.html");
+        exit();
+    } else {
+        // Login failed
+        echo 'Invalid username or password.';
+    }
+}
+
+// Close the Oracle connection
+oci_close($connection);
+?>
