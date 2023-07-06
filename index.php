@@ -48,7 +48,7 @@ if (isset($_SESSION['customer_name']) && isset($_SESSION['email'])) {
         <p>You are not logged in.</p>
         <!-- Login button -->
         <a href="login-customer.html">Login</a>
-        <a href="register-customer-vehicle.html">Register</a>
+        <a href="register-customer.html">Register</a>
     <?php } ?>
 </body>
 </html>
