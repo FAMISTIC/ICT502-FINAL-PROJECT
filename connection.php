@@ -10,7 +10,6 @@ if(!$connection){
     echo "Failed connected to database";
 
 }else{
-    echo "Connected to database";
 
 }
 

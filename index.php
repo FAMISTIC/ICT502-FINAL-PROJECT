@@ -15,7 +15,7 @@ if (isset($_SESSION['customer_name']) && isset($_SESSION['email'])) {
         session_destroy();
 
         // Redirect to the login page
-        header("Location: home.php");
+        header("Location: index.php");
         exit();
     }
 } else {

@@ -27,7 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $_SESSION['email'] = $row['EMAIL'];
         
         // Redirect to the home page or a dashboard
-        header("Location: home.php");
+        header("Location: index.php");
         exit();
     } else {
         // Login failed
