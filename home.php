@@ -6,6 +6,22 @@ if (isset($_SESSION['customer_name']) && isset($_SESSION['email'])) {
     // Retrieve the user information from the session variables
     $customer_name = $_SESSION['customer_name'];
     $email = $_SESSION['email'];
+
+    if (isset($_POST['logout'])) {
+        // Clear all session variables
+        $_SESSION = array();
+
+        // Destroy the session
+        session_destroy();
+
+        // Redirect to the login page
+        header("Location: home.php");
+        exit();
+    }
+} else {
+    // User is not logged in, redirect to the login page
+
+}
 ?>
 
 <!DOCTYPE html>
@@ -18,20 +34,20 @@ if (isset($_SESSION['customer_name']) && isset($_SESSION['email'])) {
     </style>
 </head>
 <body>
-    <h2>Welcome, <?php echo $customer_name; ?>!</h2>
-    <p>Email: <?php echo $email; ?></p>
-    <p>This is the home page for the logged-in user.</p>
-    <!-- Add more HTML content or functionality specific to the logged-in user -->
+    <?php if (isset($customer_name) && isset($email)) { ?>
+        <h2>Welcome, <?php echo $customer_name; ?>!</h2>
+        <p>Email: <?php echo $email; ?></p>
+        <p>This is the home page for the logged-in user.</p>
+        <!-- Add more HTML content or functionality specific to the logged-in user -->
 
-    <a href="logout.php">Logout</a>
+        <!-- Logout form -->
+        <form method="post">
+            <button type="submit" name="logout">Logout</button>
+        </form>
+    <?php } else { ?>
+        <p>You are not logged in.</p>
+        <!-- Login button -->
+        <a href="login-customer.html">Login</a>
+    <?php } ?>
 </body>
 </html>
-
-<?php
-} else {
-    // User is not logged in, redirect to the login page
-    header("Location: login.php");
-    exit();
-}
-?>
-
