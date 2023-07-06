@@ -3,69 +3,42 @@
 <head>
     <title>Customer List</title>
     <style>
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        th, td {
-            padding: 8px;
-            text-align: left;
-            border-bottom: 1px solid #ddd;
-        }
-        .dropbtn {
-  background-color: #04AA6D;
-  color: white;
-  padding: 16px;
-  font-size: 16px;
-  border: none;
-  cursor: pointer;
-}
-
-.dropbtn:hover, .dropbtn:focus {
-  background-color: #3e8e41;
-}
-
-#myInput {
+* {
   box-sizing: border-box;
-  background-image: url('searchicon.png');
-  background-position: 14px 12px;
+}
+
+#myInput, #myInput2, #myInput3{
+  background-image: url('/css/searchicon.png');
+  background-position: 10px 10px;
   background-repeat: no-repeat;
+  width: 100%;
   font-size: 16px;
-  padding: 14px 20px 12px 45px;
-  border: none;
+  padding: 12px 20px 12px 40px;
+  border: 1px solid #ddd;
+  margin-bottom: 12px;
+}
+
+#myTable {
+  border-collapse: collapse;
+  width: 100%;
+  border: 1px solid #ddd;
+  font-size: 18px;
+}
+
+#myTable th, #myTable td {
+  text-align: left;
+  padding: 12px;
+}
+
+#myTable tr {
   border-bottom: 1px solid #ddd;
 }
 
-#myInput:focus {outline: 3px solid #ddd;}
-
-.dropdown {
-  position: relative;
-  display: inline-block;
+#myTable tr.header, #myTable tr:hover {
+  background-color: #f1f1f1;
 }
-
-.dropdown-content {
-  display: none;
-  position: absolute;
-  background-color: #f6f6f6;
-  min-width: 230px;
-  overflow: auto;
-  border: 1px solid #ddd;
-  z-index: 1;
-}
-
-.dropdown-content a {
-  color: black;
-  padding: 12px 16px;
-  text-decoration: none;
-  display: block;
-}
-
-.dropdown a:hover {background-color: #ddd;}
-
-.show {display: block;}
 </style>
-    </style>
+
 </head>
 <body>
     <h2>Customer List</h2>
@@ -78,24 +51,22 @@
     $query = "SELECT * FROM customer";
     $stmt = oci_parse($connection, $query);
     oci_execute($stmt);
+    
+    echo '<input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names.." title="Type in a name">';
+    echo '<input type="text" id="myInput2" onkeyup="myFunction2()" placeholder="Search for email.." title="Type in a email">';
+    echo '<input type="text" id="myInput3" onkeyup="myFunction3()" placeholder="Search for phone.." title="Type in a phone">';
 
-
-    echo '<div class="dropdown">';
-    echo '<button onclick="myFunction()" class="dropbtn">Dropdown</button>';
-    echo '<div id="myDropdown" class="dropdown-content">';
-    echo '<input type="text" placeholder="Search.." id="myInput" onkeyup="filterFunction()">';
     // Display the customer data in a table
-    echo '<table>';
-    echo '<tr>';
+    echo '<table id="myTable">';
+    echo '<tr class="header">';
     echo '<th>Customer ID</th>';
     echo '<th>Customer Name</th>';
     echo '<th>Phone</th>';
     echo '<th>Email</th>';
     echo '<th>Password</th>';
     echo '<th>Action</th>';
-
     echo '</tr>';
-    
+
     while ($row = oci_fetch_assoc($stmt)) {
         echo '<tr>';
         echo '<td>' . $row['CUSTOMER_ID'] . '</td>';
@@ -110,32 +81,64 @@
         echo '</td>';
         echo '</tr>';
     }
-    echo '</div></div>';
     echo '</table>';
 
     // Close the Oracle connection
     oci_close($connection);
     ?>
 <script>
-/* When the user clicks on the button,
-toggle between hiding and showing the dropdown content */
 function myFunction() {
-  document.getElementById("myDropdown").classList.toggle("show");
-}
-
-function filterFunction() {
-  var input, filter, ul, li, a, i;
+  var input, filter, table, tr, td, i, txtValue;
   input = document.getElementById("myInput");
   filter = input.value.toUpperCase();
-  div = document.getElementById("myDropdown");
-  a = div.getElementsByTagName("tr");
-  for (i = 0; i < a.length; i++) {
-    txtValue = a[i].textContent || a[i].innerText;
-    if (txtValue.toUpperCase().indexOf(filter) > -1) {
-      a[i].style.display = "";
-    } else {
-      a[i].style.display = "none";
-    }
+  table = document.getElementById("myTable");
+  tr = table.getElementsByTagName("tr");
+  for (i = 1; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[1];
+    if (td) {
+      txtValue = td.textContent || td.innerText;
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }       
+  }
+}
+function myFunction2() {
+  var input, filter, table, tr, td, i, txtValue;
+  input = document.getElementById("myInput2");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("myTable");
+  tr = table.getElementsByTagName("tr");
+  for (i = 3; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[3];
+    if (td) {
+      txtValue = td.textContent || td.innerText;
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }       
+  }
+}
+function myFunction3() {
+  var input, filter, table, tr, td, i, txtValue;
+  input = document.getElementById("myInput3");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("myTable");
+  tr = table.getElementsByTagName("tr");
+  for (i = 2; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[2];
+    if (td) {
+      txtValue = td.textContent || td.innerText;
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }       
   }
 }
 </script>

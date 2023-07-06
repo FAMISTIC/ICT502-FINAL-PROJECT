@@ -39,7 +39,7 @@ if (isset($_SESSION['customer_name']) && isset($_SESSION['email'])) {
         <p>Email: <?php echo $email; ?></p>
         <p>This is the home page for the logged-in user.</p>
         <!-- Add more HTML content or functionality specific to the logged-in user -->
-
+        <p><a href="create-appointment.php">Create Appointment</a></p>
         <!-- Logout form -->
         <form method="post">
             <button type="submit" name="logout">Logout</button>
