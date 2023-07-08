@@ -62,7 +62,7 @@ if (isset($_SESSION['customer_name']) && isset($_SESSION['email'])) {
           <label for="date">Date</label>
           <br>
           <input type="date" id="appointment_date" name="appointment_date">
-          <input type="submit" value="Submit">
+          <input type="submit" name="submit" value="Submit">
         </form>        
         <!-- Logout form -->
         <form method="post">
