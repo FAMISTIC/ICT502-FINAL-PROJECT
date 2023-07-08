@@ -23,47 +23,23 @@ if (isset($_SESSION['customer_name']) && isset($_SESSION['email'])) {
 
 }
 ?>
+
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Appointment</title>
+    <title>Home Page</title>
+    <!-- Add your CSS styling here -->
+    <style>
+        /* CSS styles for the page */
+    </style>
 </head>
 <body>
-  <h1>Create Appointment</h1>
-<?php if (isset($customer_name) && isset($email)) { ?>
+    <?php if (isset($customer_name) && isset($email)) { ?>
         <h2>Welcome, <?php echo $customer_name; ?>!</h2>
         <p>Email: <?php echo $email; ?></p>
+        <p>This is the home page for the logged-in user.</p>
         <!-- Add more HTML content or functionality specific to the logged-in user -->
-        <form>
-          <label for="name">Name</label>
-          <br>
-          <input type="text" id="customer_name" name="customer_name" value="<?php echo $customer_name; ?>">
-          <br>
-          <label for="package">Package</label>
-          <br>
-          <select id="package" name="package">
-            <option value="basic">Basic</option>
-            <option value="premium">Premium</option>
-            <option value="enterprise">Enterprise</option>
-            <option value="business">Business</option>
-          </select>
-          <br>
-          Model: <br>
-          <input type="text" name="model">
-          <br>
-          Colour: <br>
-          <input type="text" name="colour">
-          <br>
-          Plate: <br>
-          <input type="text" name="plate">
-          <br><br>
-          <input type="submit" name="save" value="submit">
-           <br>
-          <label for="date">Date</label>
-          <br>
-          <input type="date" id="appointment_date" name="appointment_date">
-          <input type="submit" name="submit" value="Submit">
-        </form>        
+        <p><a href="create-appointment.php">Create Appointment</a></p>
         <!-- Logout form -->
         <form method="post">
             <button type="submit" name="logout">Logout</button>
